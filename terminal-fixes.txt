@@ -1,0 +1,28 @@
+
+# Autostart lxtermnal:
+mkdir -p ~/.config/autostart && cp -p /usr/share/applications/lxterminal.desktop ~/.config/autostart/lxterminal.desktop
+
+# Always start lxterminal maximized:
+# Get application name:
+xprop | grep _OB_APP_NAME
+
+vim ~/.config/openbox/lubuntu-rc.xml
+
+# Add this at bottom of file:
+<application name="gnome-terminal-server">
+   <maximized>true</maximized>
+</application>
+
+# Change color of active tab:
+# Add this to ~/.config/gtk-3.0/gtk.css
+TerminalWindow .notebook tab:active {
+   /* background-color: #AEA79F; */ /* Warm grey */
+   background-color: #DD4814; /* Ubuntu Orange */
+}
+
+
+# http://askubuntu.com/questions/283830/how-to-change-the-font-of-various-terminal-emulators
+# http://www.enricozini.org/2014/debian/terminal-emulators/
+
+# http://weishi.github.io/blog/2014/09/27/change-tab-color-in-terminator-and-ubuntu-terminal/
+/usr/share/themes/Lubuntu-default/gtk-2.0/gtkrc
