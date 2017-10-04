@@ -1,0 +1,31 @@
+# Add new disk to Linux vmware vm without reboot
+sudo bash -c 'echo "- - -" > /sys/class/scsi_host/host0/scan' # host0 is controller...
+sudo lsscsi # check new disk visible
+#sudo vgextend VolGroup00 /dev/sdb
+sudo vgextend VolGroup00 /dev/sdX
+
+
+# Dynamically expand a Linux LVM after a SAN LUN or VMware LUN resize
+lsscsi # To find SCSI ID
+Resize LUN on SAN or VMware for the correct disk
+echo 1 > /sys/block/<name of disk>/device/rescan
+pvresize /dev/<name of disk>
+lvextend -L +..... <LV path>
+resize2fs <LV path>
+
+
+
+# Remove lvm
+sudo lvs
+sudo umount /opt/atlassian/appdata/confluence/backups
+sudo vim /etc/fstab
+sudo lvremove --test --verbose VolGroup00/confluencebackupLV
+sudo lvs
+sudo vgreduce --test --verbose VolGroup00 /dev/sdc
+sudo pvremove --test --verbose /dev/sdc
+sudo pvs
+
+
+# extend volgroup
+sudo pvcreate /dev/sdb
+sudo vgextend VolGroup00 /dev/sdb

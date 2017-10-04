@@ -1,0 +1,1 @@
+yum -y install zsh yum-utils wget vim-enhanced epel-release virtdetect unzip rsync bzip2 gcc git dkms deltarpm htop open-vm-tools kernel-devel

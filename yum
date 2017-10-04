@@ -1,0 +1,23 @@
+sudo grep Updated: /var/log/yum.log | tail
+
+sudo yum --exclude=varnish* update
+
+
+
+
+#!/usr/bin/python
+
+import yum
+import time
+
+yb = yum.YumBase()
+for old in yb.history.old():
+    if "Update" in (hpkg.state for hpkg in old.trans_data):
+        print "Latest Update:", time.ctime(old.beg_timestamp)
+        break
+
+
+
+uptime | \
+perl -ne '/.*up +(?:(\d+) days?,? +)?(\d+):(\d+),.*/; $total=((($1*24+$2)*60+$3)*60);
+$now=time(); $now-=$total; $now=localtime($now); print $now,"\n";'

@@ -1,0 +1,37 @@
+test -f /proc/net/if_inet6 && echo "Running kernel is IPv6 ready"
+
+add/append ipv6.disable=1 to GRUB_CMDLINE_LINUX in /etc/grub.conf (rhel6), /etc/default/grub (rhel7)
+# After update:
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+
+
+# ubuntu: add to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
+# GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1
+# then sudo update-grub
+
+/etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+# After update:
+# sysctl -p
+
+
+/etc/sysconfig/network
+NETWORKING_IPV6=no
+VLAN=no
+NOZEROCONF=true
+
+/etc/sysconfig/network-scripts/ifcfg-...
+IPV6INIT=no
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_PEERDNS=yes
+IPV6_PEERROUTES=yes
+IPV6_FAILURE_FATAL=no
+
+chkconfig ip6tables off
+
+# other
+# echo 'blacklist ipv6' | sudo tee -a '/etc/modprobe.d/blacklist.local' >/dev/null
+# echo 'install ipv6 /bin/true' | sudo tee -a '/etc/modprobe.d/blacklist.local' >/dev/null

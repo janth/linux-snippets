@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+
+
+get_ip ()
+{
+  PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
+  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
+  echo $IP_ADDRESS
+}
+
+#Wait for network before loading IP address
+COUNTER=0
+until
+  get_ip | grep '[0-9]' || [ $COUNTER -gt 12 ]
+do
+  sleep 5
+  let COUNTER+=1
+done
+
+IP_ADDRESS=$(get_ip)
+
+
+if [ ! -s /var/local/password ]
+then
+
+  # Generate password in format WORD.Number.WORD
+  echo $(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt).$(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt) > /var/local/password
+  echo "root:$(cat /var/local/password)" | chpasswd
+fi
+
+PASSWORD=$(cat /var/local/password)
+
+echo \
+"    
+
+Use SSH to log in with the randomly generated password below.
+
+    IP: $IP_ADDRESS
+    username: root
+    password: $PASSWORD
+
+The password can be found in /var/local/password as well as this screen.
+To set a new password, run the command: reset_password.rb
+" > /etc/issue
+
+# /root/.ssh_keygen.sh
