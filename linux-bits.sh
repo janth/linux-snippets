@@ -1,5 +1,7 @@
 #!/bin/bash
 
+uname -m
+
 file --dereference /sbin/init | awk '{print $1, $3}'
 #:echo "/sbin/init: $bits"
 
