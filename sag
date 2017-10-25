@@ -1,0 +1,9 @@
+#!/bin/bash
+
+host=$( hostname -s)
+safile="$HOME/.ssh-agent.$host"
+echo $safile
+ssh-agent > $safile
+source $safile
+ssh-add
+ssh-add -l
