@@ -1,0 +1,10 @@
+https://www.cyberciti.biz/faq/linux-tar-rsync-preserving-acls-selinux-contexts/
+
+tar --selinux --acls --xattrs  -cvf file.tar /var/www
+--selinux – Save the SELinux context to the archive called file.tar.
+--acls – ASave the ACLs to the archive called file.tar.
+--xattrs – Save the user/root xattrs to the archive called file.tar Please that it archive all extended attributes, including SELinux and ACLs.
+
+rsync -av -A -X /source/path /dest/path
+-A : Preserve ACL.
+-X : Preserve extended attributes/SELinux.
