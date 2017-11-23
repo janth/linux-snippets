@@ -1,0 +1,9 @@
+https://linuxconfig.org/how-to-list-import-and-remove-archive-signing-keys-on-centos-7
+https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/
+http://irtfweb.ifa.hawaii.edu/~lockhart/gpg/
+
+rpm -q gpg-pubkey --qf '%{NAME}-%{VERSION}-%{RELEASE}\t%{SUMMARY}\n'
+
+
+gpg --list-keys --fingerprint XXXXXXXX
+gpg --keyid-format LONG -k 0xDEADBEEF
