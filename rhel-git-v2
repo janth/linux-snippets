@@ -1,0 +1,19 @@
+yum -y install centos-release-scl
+# source /etc/bash_completion.d/scl.bash
+yum -y install sclo-git25-git
+
+source /opt/rh/sclo-git25/enable
+scl enable sclo-git25
+
+scl enable setter disse env-variablene:
+MANPATH=/opt/rh/sclo-git25/root/usr/share/man
+PATH=/opt/rh/sclo-git25/root/usr/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/janth/.local/bin:/home/janth/bin
+PERL5LIB=/opt/rh/sclo-git25/root/usr/share/perl5/vendor_perl
+ 
+
+mv /usr/bin/git /usr/bin/git1
+alternatives --install /usr/bin/git git /usr/bin/git1 10
+alternatives --install /usr/bin/git git /opt/rh/sclo-git25/root/usr/bin/git 20
+alternatives --auto git
+alternatives --display git
+git version
