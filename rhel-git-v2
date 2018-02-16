@@ -1,6 +1,7 @@
 yum -y install centos-release-scl
-# source /etc/bash_completion.d/scl.bash
 yum -y install sclo-git25-git
+# scl-utils:
+# source /etc/bash_completion.d/scl.bash
 
 source /opt/rh/sclo-git25/enable
 scl enable sclo-git25
