@@ -4,6 +4,11 @@ sudo lsscsi # check new disk visible
 #sudo vgextend VolGroup00 /dev/sdb
 sudo vgextend VolGroup00 /dev/sdX
 
+lsblk ; for hostdev in /sys/class/scsi_host/* ; do sudo bash -c "echo '- - -' > ${hostdev}/scan" ; done; lsblk
+sudo pvcreate /dev/sdb
+sudo vgcreate data /dev/sdb
+sudo lvcreate -L20G -n repo data
+sudo mkfs -t xfs /dev/mapper/data-repo
 
 # Dynamically expand a Linux LVM after a SAN LUN or VMware LUN resize
 lsscsi # To find SCSI ID
