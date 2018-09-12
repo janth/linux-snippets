@@ -1,8 +1,11 @@
 test -f /proc/net/if_inet6 && echo "Running kernel is IPv6 ready"
 
 add/append ipv6.disable=1 to GRUB_CMDLINE_LINUX in /etc/grub.conf (rhel6), /etc/default/grub (rhel7)
+# CentOS:
 # After update:
 # grub2-mkconfig -o /boot/grub2/grub.cfg
+# or un uefi:
+# grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
 
 
 # ubuntu: add to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
