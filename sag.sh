@@ -15,5 +15,5 @@ rm -v $HOME/.ssh-agent.*
 echo $safile
 ssh-agent > $safile
 source $safile
-ssh-add
+ssh-add $HOME/.ssh/{id_{rsa{,-sintef,-engen},ed25519},ovmlab,vagrant}
 ssh-add -l
