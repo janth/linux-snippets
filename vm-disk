@@ -34,3 +34,10 @@ sudo pvs
 # extend volgroup
 sudo pvcreate /dev/sdb
 sudo vgextend VolGroup00 /dev/sdb
+
+
+# "eject" lvm disk
+lvchange -an <lvpath>
+vgchange -an <vgname>
+dmsetup ls
+dmsetup remove <name>
